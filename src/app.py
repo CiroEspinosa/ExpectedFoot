@@ -157,7 +157,7 @@ elif option == english_option:
 if "messages" not in st.session_state:
   st.session_state["messages"] = [{"role":"assistant", "content":translate("¡Hola! Soy el asistente de ExpectedFoot, tu analizador de jugadores.")}]
 
-if paso==pasos[0]:
+if st.session_state["paso"]==pasos[0]:
     st.session_state["messages"].append({"role":"assistant", "content":translate(correct_responses[0])})
 
    
