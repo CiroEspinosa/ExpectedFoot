@@ -144,7 +144,7 @@ select_language_msg = translate("Selecciona el idioma: ")
 spanish_option = translate("Español")
 english_option = translate("Inglés")
 
-option = st.radio((spanish_option, english_option))
+option = st.radio("",(spanish_option, english_option))
 
 if option == spanish_option:
     language = "español"
