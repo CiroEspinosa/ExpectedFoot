@@ -140,9 +140,9 @@ def translate(text):
     return translated_text
 
 
-select_language_msg = translate("Selecciona el idioma: ", language)
-spanish_option = translate("Español", language)
-english_option = translate("Inglés", language)
+select_language_msg = translate("Selecciona el idioma: ")
+spanish_option = translate("Español")
+english_option = translate("Inglés")
 
 option = st.sidebar.radio(select_language_msg, (spanish_option, english_option))
 
@@ -171,7 +171,7 @@ for msg in st.session_state["messages"]:
 if user_input := st.chat_input():
   st.session_state["messages"].append({"role": "user", "content": user_input})
   st.chat_message("user").write(user_input)
-  responseMessage = translate(response(user_inputo))
+  responseMessage = translate(response(user_input))
   st.session_state["messages"].append({"role": "assistant", "content": responseMessage})
   st.chat_message("assistant").write(responseMessage)
 
