@@ -16,11 +16,11 @@ pens_made=0
 
 correct_responses = [
     "Introduce el nombre del jugador que desea analizar",
-  f"¿Cuántos partidos ha jugado {jugador}? ",
- f"¿Cuántos goles ha marcado el {jugador}?",
- f"¿Cuántas asistencias ha realizado el {jugador}? ",
-  f"¿Cuántos penaltis ha ejecutado el {jugador}? ",
-   f"¿Cuántos goles de penalti ha marcado el {jugador} de los  de los {pens_att} penaltis ejecutados?",
+  f"¿Cuántos partidos ha jugado? ",
+ f"¿Cuántos goles ha marcado?",
+ f"¿Cuántas asistencias ha realizado? ",
+  f"¿Cuántos penaltis ha ejecutado? ",
+   f"¿Cuántos goles de penalti ha marcado de los {pens_att} penaltis ejecutados?",
    "¿Cuántos avances con la pelota hacia el área ha realizado con éxito? ",
   "Analizando datos..."
 ]
@@ -48,7 +48,7 @@ def response(user_input):
       if contiene_solo_letras(user_input):
          st.session_state["paso"]=pasos[1]
          jugador=user_input
-         return correct_responses[1]
+         return f"¿Cuántos partidos ha jugado {jugador}? "
       else:
          return error_responses[0]
     #  f"¿Cuántos partidos ha jugado {jugador}? ",
@@ -61,7 +61,7 @@ def response(user_input):
       else:
          st.session_state["paso"]=pasos[2]
          games=user_input
-         return correct_responses[2]
+         return  f"¿Cuántos goles ha marcado el {jugador}?"
     # f"¿Cuántos goles ha marcado el {jugador}?",
    if st.session_state["paso"] == pasos[2]:
         if not user_input.isdigit():
@@ -69,7 +69,7 @@ def response(user_input):
         else:
             st.session_state["paso"] = pasos[3]
             goals = int(user_input)
-            return correct_responses[3]
+            return f"¿Cuántas asistencias ha realizado el {jugador}? "
 
     # f"¿Cuántas asistencias ha realizado el {jugador}? ",
    if st.session_state["paso"] == pasos[3]:
@@ -78,7 +78,7 @@ def response(user_input):
         else:
             st.session_state["paso"] = pasos[4]
             assists = int(user_input)
-            return correct_responses[4]
+            return f"¿Cuántos penaltis ha ejecutado el {jugador}? "
 
     # f"¿Cuántos penaltis ha ejecutado el {jugador}? ",
    if st.session_state["paso"] == pasos[4]:
@@ -87,7 +87,7 @@ def response(user_input):
         else:
             st.session_state["paso"] = pasos[5]
             pens_att = int(user_input)
-            return correct_responses[5]
+            return f"¿Cuántos goles de penalti ha marcado el {jugador} de los {pens_att} penaltis ejecutados?"
 
     # f"¿Cuántos goles de penalti ha marcado el {jugador} de los penaltis ejecutados? ",
    if st.session_state["paso"] == pasos[5]:
@@ -136,6 +136,8 @@ def translate(text):
     elif language == "inglés":
         translation = translator.translate(text, dest='en')
         translated_text = translation.text
+    translated_text =translated_text.replace("Pie esperado", "ExpectedFoot")
+    translated_text =translated_text.replace("ExpectaDfoot", "ExpectedFoot")
     return translated_text
 
 ruta_imagen_local = os.path.join("media", "logo.png")
@@ -147,7 +149,7 @@ select_language_msg = translate("Selecciona el idioma: ")
 spanish_option = translate("Español")
 english_option = translate("Inglés")
 
-option = st.radio("",(spanish_option, english_option))
+option = st.radio("Seleccionar idioma: ",(spanish_option, english_option), key='select_language', label_visibility=False)
 
 if option == spanish_option:
     language = "español"
