@@ -2,6 +2,7 @@ import streamlit as st
 import os
 import numpy as np
 from googletrans import Translator
+from googletrans import LANGUAGES
 
 def contiene_solo_letras(cadena):
     return all(caracter.isalpha() or caracter.isspace() for caracter in cadena)
@@ -127,31 +128,35 @@ def compile_stats(jugador, games, goals, assists, pens_att, pens_made, progressi
     Progressive Carries: {progressive_carries}
     """
     return result
-def translate(text, language):
-    translator = Translator()
-    translated_text = ""
-    if language == "español":
-        translation = translator.translate(text, dest='es')
-        translated_text = translation.text
-    elif language == "inglés":
-        translation = translator.translate(text, dest='en')
-        translated_text = translation.text
-    translated_text = translated_text.replace("Pie esperado", "ExpectedFoot")
-    translated_text = translated_text.replace("ExpectaDfoot", "ExpectedFoot")
-    return translated_text
+      
+translator = Translator()
+language = "español"
+
+def translate(text):
+    if translator.detect(text).lang != language:  
+        translated_text = ""
+        if language == "español":
+            translation = translator.translate(text, dest='es')
+            translated_text = translation.text
+        elif language == "inglés":
+            translation = translator.translate(text, dest='en')
+            translated_text = translation.text
+        translated_text = translated_text.replace("Pie esperado", "ExpectedFoot")
+        translated_text = translated_text.replace("ExpectaDfoot", "ExpectedFoot")
+        return translated_text
+    else:
+        return text
 
 ruta_imagen_local = os.path.join("media", "logo.png")
 
 st.image(ruta_imagen_local, width=400)
 st.title("ExpectedFoot")
 
-language = "español"  # Definir el idioma predeterminado
+select_language_msg = translate("Selecciona el idioma: ")
+spanish_option = translate("Español")
+english_option = translate("Inglés")
 
-select_language_msg = translate("Selecciona el idioma: ", language)
-spanish_option = translate("Español", language)
-english_option = translate("Inglés", language)
-
-option = st.radio(select_language_msg, (spanish_option, english_option), key='select_language', label_visibility="hidden")
+option = st.radio("Seleccionar idioma: ",(spanish_option, english_option), key='select_language', label_visibility="hidden")
 
 if option == spanish_option:
     language = "español"
