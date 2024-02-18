@@ -130,7 +130,7 @@ def compile_stats(jugador, games, goals, assists, pens_att, pens_made, progressi
     return result
       
 translator = Translator()
-language = "inglés"
+language = "español"
 
 def translate(text):
     if translator.detect(text).lang != language and text is not None and not text.isdigit():  
