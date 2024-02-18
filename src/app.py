@@ -150,7 +150,7 @@ if option == spanish_option:
     language = "español"
 elif option == english_option:
     language = "inglés"
-ruta_imagen_local = os.path.join("img", "logo.png")
+ruta_imagen_local = os.path.join("img", "media\logo.png")
 
 
 st.image(ruta_imagen_local, width=200)
