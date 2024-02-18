@@ -91,7 +91,9 @@ def response(user_input):
 
     # f"¿Cuántos goles de penalti ha marcado el de los penaltis ejecutados? ",
    if st.session_state["paso"] == pasos[5]:
-        if not user_input.isdigit() or int(user_input) > goals or int(user_input) > pens_att:
+        if not user_input.isdigit():
+            return error_responses[2]
+        elif int(user_input) > goals or int(user_input) > pens_att:
             return error_responses[3]
         else:
             st.session_state["paso"] = pasos[6]
