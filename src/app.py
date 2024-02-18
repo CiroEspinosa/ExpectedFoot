@@ -48,10 +48,10 @@ def response(user_input):
       if contiene_solo_letras(user_input):
          st.session_state["paso"]=pasos[1]
          jugador=user_input
-         return f"¿Cuántos partidos ha jugado {jugador}? "
+         return f"¿Cuántos partidos ha jugado? "
       else:
          return error_responses[0]
-    #  f"¿Cuántos partidos ha jugado {jugador}? ",
+    #  f"¿Cuántos partidos ha jugado? ",
    if st.session_state["paso"]==pasos[1]:
       if not user_input.isdigit():
          return error_responses[2]
@@ -61,35 +61,35 @@ def response(user_input):
       else:
          st.session_state["paso"]=pasos[2]
          games=user_input
-         return  f"¿Cuántos goles ha marcado el {jugador}?"
-    # f"¿Cuántos goles ha marcado el {jugador}?",
+         return  f"¿Cuántos goles ha marcado?"
+    # f"¿Cuántos goles ha marcado?",
    if st.session_state["paso"] == pasos[2]:
         if not user_input.isdigit():
             return error_responses[2]
         else:
             st.session_state["paso"] = pasos[3]
             goals = int(user_input)
-            return f"¿Cuántas asistencias ha realizado el {jugador}? "
+            return f"¿Cuántas asistencias ha realizado? "
 
-    # f"¿Cuántas asistencias ha realizado el {jugador}? ",
+    # f"¿Cuántas asistencias ha realizado? ",
    if st.session_state["paso"] == pasos[3]:
         if not user_input.isdigit():
             return error_responses[2]
         else:
             st.session_state["paso"] = pasos[4]
             assists = int(user_input)
-            return f"¿Cuántos penaltis ha ejecutado el {jugador}? "
+            return f"¿Cuántos penaltis ha ejecutado? "
 
-    # f"¿Cuántos penaltis ha ejecutado el {jugador}? ",
+    # f"¿Cuántos penaltis ha ejecutado? ",
    if st.session_state["paso"] == pasos[4]:
         if not user_input.isdigit():
             return error_responses[2]
         else:
             st.session_state["paso"] = pasos[5]
             pens_att = int(user_input)
-            return f"¿Cuántos goles de penalti ha marcado el {jugador} de los {pens_att} penaltis ejecutados?"
+            return f"¿Cuántos goles de penalti ha marcado de los {pens_att} penaltis ejecutados?"
 
-    # f"¿Cuántos goles de penalti ha marcado el {jugador} de los penaltis ejecutados? ",
+    # f"¿Cuántos goles de penalti ha marcado el de los penaltis ejecutados? ",
    if st.session_state["paso"] == pasos[5]:
         if not user_input.isdigit() or int(user_input) > goals or int(user_input) > pens_att:
             return error_responses[3]
@@ -115,7 +115,7 @@ def compile_stats(jugador, games, goals, assists, pens_att, pens_made, progressi
     # Assuming you have some method to analyze these stats
     # For example:
     result = f"""
-    Name: {jugador}
+    Name:
     Games: {games}
     Goals: {goals}
     Assists: {assists}
