@@ -157,15 +157,16 @@ elif option == english_option:
 if "messages" not in st.session_state:
   st.session_state["messages"] = [{"role":"assistant", "content":translate("¡Hola! Soy el asistente de ExpectedFoot, tu analizador de jugadores.")}]
   st.session_state["messages"].append({"role":"assistant", "content":translate(correct_responses[0])})
-   
-for msg in st.session_state["messages"]:
-  st.chat_message(msg["role"]).write(translate(msg["content"]))
 
-if user_input := st.chat_input():
-  st.session_state["messages"].append({"role": "user", "content": user_input})
-  st.chat_message("user").write(user_input)
-  responseMessage = translate(response(user_input))
-  st.session_state["messages"].append({"role": "assistant", "content": responseMessage})
-  st.chat_message("assistant").write(responseMessage)
+if "messages" in st.session_state:
+   for msg in st.session_state["messages"]:
+    st.chat_message(msg["role"]).write(translate(msg["content"]))
+
+   if user_input := st.chat_input():
+    st.session_state["messages"].append({"role": "user", "content": user_input})
+    st.chat_message("user").write(user_input)
+    responseMessage = translate(response(user_input))
+    st.session_state["messages"].append({"role": "assistant", "content": responseMessage})
+    st.chat_message("assistant").write(responseMessage)
 
 
