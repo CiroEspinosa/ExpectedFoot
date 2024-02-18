@@ -93,8 +93,9 @@ def response(user_input):
    if st.session_state["paso"] == pasos[5]:
         if not user_input.isdigit():
             return error_responses[2]
-        """elif int(user_input) > goals or int(user_input) > pens_att:
-            return error_responses[3]"""
+        elif int(user_input) > goals or int(user_input) > pens_att:
+            return assists+" "+pens_att+" "+goals
+           # return error_responses[3]
         else:
             st.session_state["paso"] = pasos[6]
             pens_made = int(user_input)
