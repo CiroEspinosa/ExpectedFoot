@@ -133,7 +133,7 @@ translator = Translator()
 language = "inglés"
 
 def translate(text):
-    if translator.detect(text).lang != language:  
+    if translator.detect(text).lang != language and text is not None and not text.isdigit():  
         translated_text = ""
         if language == "español":
             translation = translator.translate(text, dest='es')
