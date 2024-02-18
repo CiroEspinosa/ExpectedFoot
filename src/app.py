@@ -140,6 +140,8 @@ def translate(text):
         translated_text = translation.text
     translated_text =translated_text.replace("Pie esperado", "ExpectedFoot")
     translated_text =translated_text.replace("ExpectaDfoot", "ExpectedFoot")
+    if text==jugador:
+        return jugador
     return translated_text
 
 ruta_imagen_local = os.path.join("media", "logo.png")
