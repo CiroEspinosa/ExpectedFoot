@@ -144,7 +144,7 @@ select_language_msg = translate("Selecciona el idioma: ")
 spanish_option = translate("Español")
 english_option = translate("Inglés")
 
-option = st.sidebar.radio(select_language_msg, (spanish_option, english_option))
+option = st.radio(select_language_msg, (spanish_option, english_option))
 
 if option == spanish_option:
     language = "español"
@@ -153,7 +153,7 @@ elif option == english_option:
 ruta_imagen_local = os.path.join("media", "logo.png")
 
 
-st.image(ruta_imagen_local, width=200)
+st.image(ruta_imagen_local, width=400)
 st.title("ExpectedFoot")
 
 
@@ -162,7 +162,7 @@ if "messages" not in st.session_state:
   st.session_state["messages"] = [{"role":"assistant", "content":translate("¡Hola! Soy el asistente de ExpectedFoot, tu analizador de jugadores.")}]
 
 if paso==pasos[0]:
-    st.session_state["messages"] = [{"role":"assistant", "content":translate(correct_responses[0])}]
+    st.session_state["messages"].append({"role":"assistant", "content":translate(correct_responses[0])})
 
    
 for msg in st.session_state["messages"]:
