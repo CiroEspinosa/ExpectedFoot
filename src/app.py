@@ -89,7 +89,7 @@ def response(user_input):
         else:
             st.session_state["paso"] = pasos[5]
             st.session_state["pens_att"]= int(user_input)
-            return f"¿Cuántos goles de penalti ha marcado "+st.session_state["jugador"]+" de los "+st.session_state["pens_att"]+" penaltis ejecutados?"
+            return f"¿Cuántos goles de penalti ha marcado "+st.session_state["jugador"]+" de los "+str(st.session_state["pens_att"])+" penaltis ejecutados?"
 
     # f"¿Cuántos goles de penalti ha marcado el de los penaltis ejecutados? ",
    if st.session_state["paso"] == pasos[5]:
