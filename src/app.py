@@ -132,8 +132,9 @@ translator = Translator()
 language = "inglés"
 
 def translate(text):
-    if translator.detect(text).lang != language and text is not None and not text.isdigit() and text !=jugador:
-        try:  
+    global language
+    if translator.detect(text).lang != language and text.strip() != jugador.strip() and text is not None and not text.isdigit():
+        try:
             translated_text = ""
             if language == "español":
                 translation = translator.translate(text, dest='es')
@@ -145,9 +146,10 @@ def translate(text):
             translated_text = translated_text.replace("ExpectaDfoot", "ExpectedFoot")
             return translated_text
         except Exception as e:
-                print(f"Error en la traducción: {e}")
+            print(f"Error en la traducción: {e}")
     else:
         return text
+
 
 ruta_imagen_local = os.path.join("media", "logo.png")
 
