@@ -49,7 +49,7 @@ def response(user_input):
       if contiene_solo_letras(user_input):
          st.session_state["paso"]=pasos[1]
          jugador=user_input
-         return f"¿Cuántos partidos ha jugado? "
+         return f"¿Cuántos partidos ha jugado? "+jugador
       else:
          return error_responses[0]
     #  f"¿Cuántos partidos ha jugado? ",
@@ -62,7 +62,7 @@ def response(user_input):
       else:
          st.session_state["paso"]=pasos[2]
          games=user_input
-         return  f"¿Cuántos goles ha marcado?"
+         return  f"¿Cuántos goles ha marcado?"+games
     # f"¿Cuántos goles ha marcado?",
    if st.session_state["paso"] == pasos[2]:
         if not user_input.isdigit():
@@ -137,7 +137,6 @@ def translate(text):
             translated_text = ""
             if language == "español":
                 translation = translator.translate(text, dest='es')
-                print(translation.text)
                 translated_text = translation.text
             elif language == "inglés":
                 translation = translator.translate(text, dest='en')
