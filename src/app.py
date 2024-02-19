@@ -29,7 +29,7 @@ correct_responses = [
  f"¿Cuántos goles ha marcado?",
  f"¿Cuántas asistencias ha realizado? ",
   f"¿Cuántos penaltis ha ejecutado? ",
-   f"¿Cuántos goles de penalti ha marcado de los "+st.session_state["pens_att"]+" penaltis ejecutados?",
+   f"¿Cuántos goles de penalti ha marcado de los "+str(st.session_state["pens_att"])+" penaltis ejecutados?",
    f"¿Cuántos avances con la pelota hacia el área ha realizado "+st.session_state["jugador"]+" con éxito? ",
   "Analizando datos..."
 ]
