@@ -132,17 +132,21 @@ translator = Translator()
 language = "inglés"
 
 def translate(text):
-    if translator.detect(text).lang != language and text is not None and not text.isdigit() and text !=jugador:  
-        translated_text = ""
-        if language == "español":
-            translation = translator.translate(text, dest='es')
-            translated_text = translation.text
-        elif language == "inglés":
-            translation = translator.translate(text, dest='en')
-            translated_text = translation.text
-        translated_text = translated_text.replace("Pie esperado", "ExpectedFoot")
-        translated_text = translated_text.replace("ExpectaDfoot", "ExpectedFoot")
-        return translated_text
+    if translator.detect(text).lang != language and text is not None and not text.isdigit() and text !=jugador:
+        try:  
+            translated_text = ""
+            if language == "español":
+                translation = translator.translate(text, dest='es')
+                print(translation.text)
+                translated_text = translation.text
+            elif language == "inglés":
+                translation = translator.translate(text, dest='en')
+                translated_text = translation.text
+            translated_text = translated_text.replace("Pie esperado", "ExpectedFoot")
+            translated_text = translated_text.replace("ExpectaDfoot", "ExpectedFoot")
+            return translated_text
+        except Exception as e:
+                print(f"Error en la traducción: {e}")
     else:
         return text
 
