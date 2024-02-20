@@ -31,7 +31,7 @@ if "pens_made" not in st.session_state:
 
 
 correct_responses = [
-    "Introduce el nombre del jugador que desea analizar.",
+    "Introduce el nombre del jugador que desea analizar:",
   f"¿Cuántos partidos ha jugado? ",
  f"¿Cuántos goles ha marcado?",
  f"¿Cuántas asistencias ha realizado? ",
@@ -128,16 +128,16 @@ def response(user_input):
   
     
 
-def compile_stats(player, games, goals, assists, pens_att, pens_made, progressive_carries):  
+def compile_stats(games, goals, assists, pens_att, pens_made, progressive_carries):  
     goals_assists=goals+assists
     goals_pens = goals - pens_made
     new_data = [[games, goals, assists, goals_assists, pens_att, pens_made, goals_pens, progressive_carries]]
     prediction = xg_model_decision_tree_regressor.predict(new_data)
     if st.session_state["pens_made"] == 0:
-        return  (f"* el jugador ha marcado {goals} goles en {games} partidos, asistiendo {assists} veces, ha ejecutado {pens_att} penaltis, de los cuales no marcado ninguno y los goles marcados en jugada han sido {goals_pens}.\n El resultado de los goles esperados del jugador es de {prediction[0]:.2f} goles por temporada.")
+        return  (f"> el jugador ha marcado {goals} goles en {games} partidos, asistiendo {assists} veces, ha ejecutado {pens_att} penaltis, de los cuales no marcado ninguno y los goles marcados en jugada han sido {goals_pens}.\n El resultado de los goles esperados del jugador es de {prediction[0]:.2f} goles por temporada.")
 
     else:
-        return (f"* el jugador ha marcado {goals} goles en {games} partidos, asistiendo {assists} veces, ha ejecutado {pens_att} penaltis, de los cuales ha marcado {pens_made} y los goles marcados en jugada han sido {goals_pens}.\n El resultado de los goles esperados del jugador es de {prediction[0]:.2f} goles por temporada.")
+        return (f"> el jugador ha marcado {goals} goles en {games} partidos, asistiendo {assists} veces, ha ejecutado {pens_att} penaltis, de los cuales ha marcado {pens_made} y los goles marcados en jugada han sido {goals_pens}.\n El resultado de los goles esperados del jugador es de {prediction[0]:.2f} goles por temporada.")
         
       
 translator = Translator()
