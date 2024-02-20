@@ -2,7 +2,14 @@ import streamlit as st
 import os
 import numpy as np
 from googletrans import Translator
-from googletrans import LANGUAGES
+import joblib
+
+
+modelo_ruta = 'model/xg_model_decision_tree_regressor.pkl'
+
+xg_model_decision_tree_regressor = joblib.load(modelo_ruta)
+
+
 
 def contiene_solo_letras(cadena):
     return all(caracter.isalpha() or caracter.isspace() for caracter in cadena)
@@ -45,6 +52,13 @@ if "paso" not in st.session_state:
     st.session_state["paso"]=pasos[0]
 
 def response(user_input):
+   jugador=st.session_state["jugador"]
+   games=st.session_state["games"]
+   goals=st.session_state["goals"]
+   assists=st.session_state["assists"]
+   pens_att=st.session_state["pens_att"]
+   pens_made=st.session_state["pens_made"]
+   progressive_carries=st.session_state["progressive_carries"]
    # "Introduce el nombre del jugador que desea analizar",
    if st.session_state["paso"]==pasos[0]:
       if contiene_solo_letras(user_input):
@@ -108,7 +122,7 @@ def response(user_input):
             return error_responses[2]
         else:
             st.session_state["paso"] = pasos[7]
-            progressive_carries = int(user_input)
+            st.session_state["progressive_carries"] = int(user_input)
             return correct_responses[7]
     # "Analizando datos..."
    if st.session_state["paso"] == pasos[7]:
@@ -120,20 +134,19 @@ def response(user_input):
                          st.session_state["pens_att"], 
                          st.session_state["pens_made"], 
                          st.session_state["progressive_carries"])
+    
 
-def compile_stats(jugador, games, goals, assists, pens_att, pens_made, progressive_carries):  
-    # Assuming you have some method to analyze these stats
-    # For example:
-    result = f"""
-    Name: {jugador}
-    Games: {games}
-    Goals: {goals}
-    Assists: {assists}
-    Penalty Attempts: {pens_att}
-    Penalty Goals: {pens_made}
-    Progressive Carries: {progressive_carries}
-    """
-    return result
+def compile_stats(player, games, goals, assists, pens_att, pens_made, progressive_carries):  
+    goals_assists=goals+assists
+    goals_pens = goals - pens_made
+    new_data = [[games, goals, assists, goals_assists, pens_att, pens_made, goals_pens, progressive_carries]]
+    prediction = xg_model_decision_tree_regressor.predict(new_data)
+    if st.session_state["pens_made"] == 0:
+        return  (f"{player} ha marcado {goals} goles en {games} partidos, asistiendo {assists} veces, ha ejecutado {pens_att} penaltis, de los cuales no marcado ninguno y los goles marcados en jugada han sido {goals_pens}.\n El resultado de los goles esperados del jugador es de {prediction[0]:.2f} goles por temporada")
+
+    else:
+        return (f"{player} ha marcado {goals} goles en {games} partidos, asistiendo {assists} veces, ha ejecutado {pens_att} penaltis, de los cuales ha marcado {pens_made} y los goles marcados en jugada han sido {goals_pens}.\n El resultado de los goles esperados del jugador es de {prediction[0]:.2f} goles por temporada")
+        
       
 translator = Translator()
 language = "inglés"
@@ -151,6 +164,7 @@ def translate(text):
                 translated_text = translation.text
             translated_text = translated_text.replace("Pie esperado", "ExpectedFoot")
             translated_text = translated_text.replace("ExpectaDfoot", "ExpectedFoot")
+            translated_text = translated_text.replace(translator.translate(st.session_state["jugador"], dest='es'), st.session_state["jugador"])
             return translated_text
         except Exception as e:
             print(f"Error en la traducción: {e}")
