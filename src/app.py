@@ -31,7 +31,7 @@ if "pens_made" not in st.session_state:
 
 
 correct_responses = [
-    "Introduce el nombre del jugador que desea analizar",
+    "Introduce el nombre del jugador que desea analizar.",
   f"¿Cuántos partidos ha jugado? ",
  f"¿Cuántos goles ha marcado?",
  f"¿Cuántas asistencias ha realizado? ",
@@ -142,10 +142,10 @@ def compile_stats(player, games, goals, assists, pens_att, pens_made, progressiv
     new_data = [[games, goals, assists, goals_assists, pens_att, pens_made, goals_pens, progressive_carries]]
     prediction = xg_model_decision_tree_regressor.predict(new_data)
     if st.session_state["pens_made"] == 0:
-        return  (f"el jugador ha marcado {goals} goles en {games} partidos, asistiendo {assists} veces, ha ejecutado {pens_att} penaltis, de los cuales no marcado ninguno y los goles marcados en jugada han sido {goals_pens}.\n El resultado de los goles esperados del jugador es de {prediction[0]:.2f} goles por temporada")
+        return  (f"el jugador ha marcado {goals} goles en {games} partidos, asistiendo {assists} veces, ha ejecutado {pens_att} penaltis, de los cuales no marcado ninguno y los goles marcados en jugada han sido {goals_pens}.\n El resultado de los goles esperados del jugador es de {prediction[0]:.2f} goles por temporada.")
 
     else:
-        return (f"el jugador ha marcado {goals} goles en {games} partidos, asistiendo {assists} veces, ha ejecutado {pens_att} penaltis, de los cuales ha marcado {pens_made} y los goles marcados en jugada han sido {goals_pens}.\n El resultado de los goles esperados del jugador es de {prediction[0]:.2f} goles por temporada")
+        return (f"el jugador ha marcado {goals} goles en {games} partidos, asistiendo {assists} veces, ha ejecutado {pens_att} penaltis, de los cuales ha marcado {pens_made} y los goles marcados en jugada han sido {goals_pens}.\n El resultado de los goles esperados del jugador es de {prediction[0]:.2f} goles por temporada.")
         
       
 translator = Translator()
@@ -196,7 +196,7 @@ elif option == english_option:
     language = "inglés"
 
 if "messages" not in st.session_state:
-  st.session_state["messages"] = [{"role":"assistant", "content":translate("¡Hola! Soy el asistente de ExpectedFoot, tu analizador de jugadores")}]
+  st.session_state["messages"] = [{"role":"assistant", "content":translate("¡Hola! Soy el asistente de ExpectedFoot, tu analizador de jugadores.")}]
   st.session_state["messages"].append({"role":"assistant", "content":translate(correct_responses[0])})
 
 if "messages" in st.session_state:
