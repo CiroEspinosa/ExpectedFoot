@@ -212,6 +212,6 @@ if "messages" in st.session_state:
                                     st.session_state["progressive_carries"])
         st.session_state["messages"].append({"role": "assistant", "content":translate(newPrediction)})
         st.session_state["paso"]=pasos[0]
-        st.chat_message("assistant").write(translate(newPrediction))
+        st.chat_message("assistant").write(translate(newPrediction)))
 
 
