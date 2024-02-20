@@ -37,12 +37,12 @@ correct_responses = [
  f"¿Cuántas asistencias ha realizado? ",
   f"¿Cuántos penaltis ha ejecutado? ",
    f"¿Cuántos goles de penalti ha marcado de los "+str(st.session_state["pens_att"])+" penaltis ejecutados?",
-   f"¿Cuántos avances con la pelota hacia el área ha realizado "+st.session_state["jugador"]+" con éxito? ",
+   f"¿Cuántos avances con la pelota hacia el área ha realizado el jugador con éxito? ",
   "Analizando datos..."
 ]
 error_responses = [
    "Por favor, introduce correctamente el nombre del jugador.",
-   f""+st.session_state["jugador"]+" no ha jugado ningún partido. No podemos seguir analizando a este jugador.", 
+   f"el jugador no ha jugado ningún partido. No podemos seguir analizando a este jugador.", 
    "Error: introduzca un número natural",
    "Error: La cantidad de goles de penalti no puede ser mayor que la cantidad total de goles marcados o penaltis ejecutados.",
    ]
@@ -64,7 +64,7 @@ def response(user_input):
       if contiene_solo_letras(user_input):
          st.session_state["paso"]=pasos[1]
          st.session_state["jugador"]=user_input
-         return f"¿Cuántos partidos ha jugado "+st.session_state["jugador"]+"? "
+         return f"¿Cuántos partidos ha jugado el jugador? "
       else:
          return error_responses[0]
     #  f"¿Cuántos partidos ha jugado? ",
@@ -77,7 +77,7 @@ def response(user_input):
       else:
          st.session_state["paso"]=pasos[2]
          st.session_state["games"]=user_input
-         return  f"¿Cuántos goles ha marcado "+st.session_state["jugador"]+"?"
+         return  f"¿Cuántos goles ha marcado el jugador?"
     # f"¿Cuántos goles ha marcado?",
    if st.session_state["paso"] == pasos[2]:
         if not user_input.isdigit():
@@ -85,7 +85,7 @@ def response(user_input):
         else:
             st.session_state["paso"] = pasos[3]
             st.session_state["goals"] = int(user_input)
-            return f"¿Cuántas asistencias ha realizado "+st.session_state["jugador"]+"? "
+            return f"¿Cuántas asistencias ha realizado el jugador? "
 
     # f"¿Cuántas asistencias ha realizado? ",
    if st.session_state["paso"] == pasos[3]:
@@ -94,7 +94,7 @@ def response(user_input):
         else:
             st.session_state["paso"] = pasos[4]
             st.session_state["assists"] = int(user_input)
-            return f"¿Cuántos penaltis ha ejecutado "+st.session_state["jugador"]+"? "
+            return f"¿Cuántos penaltis ha ejecutado el jugador? "
 
     # f"¿Cuántos penaltis ha ejecutado? ",
    if st.session_state["paso"] == pasos[4]:
@@ -103,7 +103,7 @@ def response(user_input):
         else:
             st.session_state["paso"] = pasos[5]
             st.session_state["pens_att"]= int(user_input)
-            return f"¿Cuántos goles de penalti ha marcado "+st.session_state["jugador"]+" de los "+str(st.session_state["pens_att"])+" penaltis ejecutados?"
+            return f"¿Cuántos goles de penalti ha marcado el jugador de los "+str(st.session_state["pens_att"])+" penaltis ejecutados?"
 
     # f"¿Cuántos goles de penalti ha marcado el de los penaltis ejecutados? ",
    if st.session_state["paso"] == pasos[5]:
@@ -142,10 +142,10 @@ def compile_stats(player, games, goals, assists, pens_att, pens_made, progressiv
     new_data = [[games, goals, assists, goals_assists, pens_att, pens_made, goals_pens, progressive_carries]]
     prediction = xg_model_decision_tree_regressor.predict(new_data)
     if st.session_state["pens_made"] == 0:
-        return  (f"{player} ha marcado {goals} goles en {games} partidos, asistiendo {assists} veces, ha ejecutado {pens_att} penaltis, de los cuales no marcado ninguno y los goles marcados en jugada han sido {goals_pens}.\n El resultado de los goles esperados del jugador es de {prediction[0]:.2f} goles por temporada")
+        return  (f"el jugador ha marcado {goals} goles en {games} partidos, asistiendo {assists} veces, ha ejecutado {pens_att} penaltis, de los cuales no marcado ninguno y los goles marcados en jugada han sido {goals_pens}.\n El resultado de los goles esperados del jugador es de {prediction[0]:.2f} goles por temporada")
 
     else:
-        return (f"{player} ha marcado {goals} goles en {games} partidos, asistiendo {assists} veces, ha ejecutado {pens_att} penaltis, de los cuales ha marcado {pens_made} y los goles marcados en jugada han sido {goals_pens}.\n El resultado de los goles esperados del jugador es de {prediction[0]:.2f} goles por temporada")
+        return (f"el jugador ha marcado {goals} goles en {games} partidos, asistiendo {assists} veces, ha ejecutado {pens_att} penaltis, de los cuales ha marcado {pens_made} y los goles marcados en jugada han sido {goals_pens}.\n El resultado de los goles esperados del jugador es de {prediction[0]:.2f} goles por temporada")
         
       
 translator = Translator()
@@ -155,15 +155,20 @@ def translate(text):
     global language
     if translator.detect(text).lang != language and text != st.session_state["jugador"] and text is not None and not text.isdigit():
         try:
+            
             translated_text = ""
             if language == "español":
+                text=text.replace( st.session_state["player"],"el jugador")
                 translation = translator.translate(text, dest='es')
                 translated_text = translation.text
             elif language == "inglés":
+                text=text.replace(st.session_state["player"],"the player")
                 translation = translator.translate(text, dest='en')
                 translated_text = translation.text
             translated_text = translated_text.replace("Pie esperado", "ExpectedFoot")
             translated_text = translated_text.replace("ExpectaDfoot", "ExpectedFoot")
+            translated_text = translated_text.replace("el jugador", st.session_state["player"])
+            translated_text = translated_text.replace("the player", st.session_state["player"])
             return translated_text
         except Exception as e:
             print(f"Error en la traducción: {e}")
