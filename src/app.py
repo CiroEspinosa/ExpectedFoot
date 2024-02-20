@@ -153,7 +153,7 @@ language = "inglés"
 
 def translate(text):
     global language
-    if translator.detect(text).lang != language and text != st.session_state["jugador"] and text is not None and not text.isdigit():
+    if translator.detect(text).lang != language and text != st.session_state["jugador"] and text is not None and not text.isdigit() and text!="":
         try:
             
             translated_text = ""
