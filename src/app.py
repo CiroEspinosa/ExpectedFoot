@@ -164,7 +164,6 @@ def translate(text):
                 translated_text = translation.text
             translated_text = translated_text.replace("Pie esperado", "ExpectedFoot")
             translated_text = translated_text.replace("ExpectaDfoot", "ExpectedFoot")
-            translated_text = translated_text.replace(translator.translate(st.session_state["jugador"], dest='es'), st.session_state["jugador"])
             return translated_text
         except Exception as e:
             print(f"Error en la traducción: {e}")
