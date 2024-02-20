@@ -203,15 +203,15 @@ if "messages" in st.session_state:
     st.session_state["messages"].append({"role": "assistant", "content": responseMessage})
     st.chat_message("assistant").write(responseMessage)
     if responseMessage==correct_responses[7]:
-        st.session_state["messages"].append({"role": "assistant", "content":
-                                              compile_stats(
-                                                  st.session_state["jugador"],
-                                                  st.session_state["games"],
-                                                  st.session_state["goals"],
-                                                  st.session_state["assists"],
-                                                  st.session_state["pens_att"], 
-                                                  st.session_state["pens_made"], 
-                                                  st.session_state["progressive_carries"])})
+        newPrediction=compile_stats(st.session_state["jugador"],
+                                    st.session_state["games"],
+                                    st.session_state["goals"],
+                                    st.session_state["assists"],
+                                    st.session_state["pens_att"], 
+                                    st.session_state["pens_made"], 
+                                    st.session_state["progressive_carries"])
+        st.session_state["messages"].append({"role": "assistant", "content":translate(newPrediction)})
         st.session_state["paso"]=pasos[0]
+        st.chat_message("assistant").write(translate(newPrediction))
 
 
