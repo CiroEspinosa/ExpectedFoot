@@ -153,16 +153,15 @@ language = "inglés"
 
 def translate(text):
     global language
-    if translator.detect(text).lang != language and text != st.session_state["jugador"] and text is not None and not text.isdigit() and text!="":
+    if text != st.session_state["jugador"] and text is not None and not text.isdigit() and text!="":
         try:
-            
             translated_text = ""
             if language == "español":
-                text=text.replace( st.session_state["jugador"],"el jugador")
+                text=text.replace(st.session_state["jugador"],"the player")
                 translation = translator.translate(text, dest='es')
                 translated_text = translation.text
             elif language == "inglés":
-                text=text.replace(st.session_state["jugador"],"the player")
+                text=text.replace( st.session_state["jugador"],"el jugador")
                 translation = translator.translate(text, dest='en')
                 translated_text = translation.text
             translated_text = translated_text.replace("Pie esperado", "ExpectedFoot")
