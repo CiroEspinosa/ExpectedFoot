@@ -203,8 +203,7 @@ if "messages" in st.session_state:
     st.session_state["messages"].append({"role": "assistant", "content": responseMessage})
     st.chat_message("assistant").write(responseMessage)
     if responseMessage==correct_responses[7]:
-        newPrediction=compile_stats(st.session_state["jugador"],
-                                    st.session_state["games"],
+        newPrediction=compile_stats( st.session_state["games"],
                                     st.session_state["goals"],
                                     st.session_state["assists"],
                                     st.session_state["pens_att"], 
