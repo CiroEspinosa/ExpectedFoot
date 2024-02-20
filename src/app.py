@@ -196,7 +196,7 @@ if "messages" in st.session_state:
     st.chat_message(msg["role"]).write(translate(msg["content"]))
 
 
-   if user_input := st.chat_input() and st.session_state["messages"][-1]["role"] != "user":
+   if user_input := st.chat_input():
     st.session_state["messages"].append({"role": "user", "content": user_input})
     st.chat_message("user").write(user_input)
     responseMessage = translate(response(user_input))
