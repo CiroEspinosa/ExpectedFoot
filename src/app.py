@@ -125,15 +125,7 @@ def response(user_input):
             st.session_state["progressive_carries"] = int(user_input)
             return correct_responses[7]
     # "Analizando datos..."
-   if st.session_state["paso"] == pasos[7]:
-    st.session_state["paso"]=pasos[0]
-    return compile_stats(st.session_state["jugador"],
-                         st.session_state["games"],
-                         st.session_state["goals"],
-                         st.session_state["assists"],
-                         st.session_state["pens_att"], 
-                         st.session_state["pens_made"], 
-                         st.session_state["progressive_carries"])
+  
     
 
 def compile_stats(player, games, goals, assists, pens_att, pens_made, progressive_carries):  
@@ -142,10 +134,10 @@ def compile_stats(player, games, goals, assists, pens_att, pens_made, progressiv
     new_data = [[games, goals, assists, goals_assists, pens_att, pens_made, goals_pens, progressive_carries]]
     prediction = xg_model_decision_tree_regressor.predict(new_data)
     if st.session_state["pens_made"] == 0:
-        return  (f"el jugador ha marcado {goals} goles en {games} partidos, asistiendo {assists} veces, ha ejecutado {pens_att} penaltis, de los cuales no marcado ninguno y los goles marcados en jugada han sido {goals_pens}.\n El resultado de los goles esperados del jugador es de {prediction[0]:.2f} goles por temporada.")
+        return  (f" el jugador ha marcado {goals} goles en {games} partidos, asistiendo {assists} veces, ha ejecutado {pens_att} penaltis, de los cuales no marcado ninguno y los goles marcados en jugada han sido {goals_pens}.\n El resultado de los goles esperados del jugador es de {prediction[0]:.2f} goles por temporada.")
 
     else:
-        return (f"el jugador ha marcado {goals} goles en {games} partidos, asistiendo {assists} veces, ha ejecutado {pens_att} penaltis, de los cuales ha marcado {pens_made} y los goles marcados en jugada han sido {goals_pens}.\n El resultado de los goles esperados del jugador es de {prediction[0]:.2f} goles por temporada.")
+        return (f" el jugador ha marcado {goals} goles en {games} partidos, asistiendo {assists} veces, ha ejecutado {pens_att} penaltis, de los cuales ha marcado {pens_made} y los goles marcados en jugada han sido {goals_pens}.\n El resultado de los goles esperados del jugador es de {prediction[0]:.2f} goles por temporada.")
         
       
 translator = Translator()
@@ -203,11 +195,23 @@ if "messages" in st.session_state:
    for msg in st.session_state["messages"]:
     st.chat_message(msg["role"]).write(translate(msg["content"]))
 
+
    if user_input := st.chat_input():
     st.session_state["messages"].append({"role": "user", "content": user_input})
     st.chat_message("user").write(user_input)
     responseMessage = translate(response(user_input))
     st.session_state["messages"].append({"role": "assistant", "content": responseMessage})
     st.chat_message("assistant").write(responseMessage)
+    if responseMessage==correct_responses[7]:
+        st.session_state["messages"].append({"role": "assistant", "content":
+                                              compile_stats(
+                                                  st.session_state["jugador"],
+                                                  st.session_state["games"],
+                                                  st.session_state["goals"],
+                                                  st.session_state["assists"],
+                                                  st.session_state["pens_att"], 
+                                                  st.session_state["pens_made"], 
+                                                  st.session_state["progressive_carries"])})
+        st.session_state["paso"]=pasos[0]
 
 
