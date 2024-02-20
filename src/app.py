@@ -134,10 +134,10 @@ def compile_stats(player, games, goals, assists, pens_att, pens_made, progressiv
     new_data = [[games, goals, assists, goals_assists, pens_att, pens_made, goals_pens, progressive_carries]]
     prediction = xg_model_decision_tree_regressor.predict(new_data)
     if st.session_state["pens_made"] == 0:
-        return  (f" el jugador ha marcado {goals} goles en {games} partidos, asistiendo {assists} veces, ha ejecutado {pens_att} penaltis, de los cuales no marcado ninguno y los goles marcados en jugada han sido {goals_pens}.\n El resultado de los goles esperados del jugador es de {prediction[0]:.2f} goles por temporada.")
+        return  (f"* el jugador ha marcado {goals} goles en {games} partidos, asistiendo {assists} veces, ha ejecutado {pens_att} penaltis, de los cuales no marcado ninguno y los goles marcados en jugada han sido {goals_pens}.\n El resultado de los goles esperados del jugador es de {prediction[0]:.2f} goles por temporada.")
 
     else:
-        return (f" el jugador ha marcado {goals} goles en {games} partidos, asistiendo {assists} veces, ha ejecutado {pens_att} penaltis, de los cuales ha marcado {pens_made} y los goles marcados en jugada han sido {goals_pens}.\n El resultado de los goles esperados del jugador es de {prediction[0]:.2f} goles por temporada.")
+        return (f"* el jugador ha marcado {goals} goles en {games} partidos, asistiendo {assists} veces, ha ejecutado {pens_att} penaltis, de los cuales ha marcado {pens_made} y los goles marcados en jugada han sido {goals_pens}.\n El resultado de los goles esperados del jugador es de {prediction[0]:.2f} goles por temporada.")
         
       
 translator = Translator()
@@ -210,8 +210,10 @@ if "messages" in st.session_state:
                                     st.session_state["pens_att"], 
                                     st.session_state["pens_made"], 
                                     st.session_state["progressive_carries"])
-        st.session_state["messages"].append({"role": "assistant", "content":translate(newPrediction)})
         st.session_state["paso"]=pasos[0]
+        st.session_state["messages"].append({"role": "assistant", "content":translate(newPrediction)})
         st.chat_message("assistant").write(translate(newPrediction))
+        st.session_state["messages"].append({"role":"assistant", "content":translate(correct_responses[0])})
+        st.chat_message("assistant").write(translate(correct_responses[0]))
 
 
