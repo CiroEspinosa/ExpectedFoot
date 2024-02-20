@@ -188,37 +188,31 @@ elif option == english_option:
     language = "inglés"
 
 if "messages" not in st.session_state:
-    st.session_state["messages"] = [{"role":"assistant", "content":translate("¡Hola! Soy el asistente de ExpectedFoot, tu analizador de jugadores.")}]
-    st.session_state["messages"].append({"role":"assistant", "content":translate(correct_responses[0])})
-    st.session_state["assistant_responded"] = True  # Indicador de que el asistente ya ha respondido
+  st.session_state["messages"] = [{"role":"assistant", "content":translate("¡Hola! Soy el asistente de ExpectedFoot, tu analizador de jugadores.")}]
+  st.session_state["messages"].append({"role":"assistant", "content":translate(correct_responses[0])})
 
 if "messages" in st.session_state:
-    for msg in st.session_state["messages"]:
-        st.chat_message(msg["role"]).write(translate(msg["content"]))
+   for msg in st.session_state["messages"]:
+    st.chat_message(msg["role"]).write(translate(msg["content"]))
 
-    if not st.session_state.get("assistant_responded", False):  # Solo si el asistente no ha respondido
-        if user_input := st.chat_input():
-            st.session_state["messages"].append({"role": "user", "content": user_input})
-            st.chat_message("user").write(user_input)
-            responseMessage = translate(response(user_input))
-            st.session_state["messages"].append({"role": "assistant", "content": responseMessage})
-            st.chat_message("assistant").write(responseMessage)
-            st.session_state["assistant_responded"] = True  # Marcar que el asistente ha respondido
 
-            if responseMessage == correct_responses[7]:
-                newPrediction = compile_stats(
-                    st.session_state["games"],
-                    st.session_state["goals"],
-                    st.session_state["assists"],
-                    st.session_state["pens_att"],
-                    st.session_state["pens_made"],
-                    st.session_state["progressive_carries"]
-                )
-                st.session_state["paso"] = pasos[0]
-                st.session_state["messages"].append({"role": "assistant", "content": translate(newPrediction)})
-                st.chat_message("assistant").write(translate(newPrediction))
-                st.session_state["messages"].append({"role": "assistant", "content": translate(correct_responses[0])})
-                st.chat_message("assistant").write(translate(correct_responses[0]))
-
+   if user_input := st.chat_input() and st.session_state["messages"][-1]["role"] != "user":
+    st.session_state["messages"].append({"role": "user", "content": user_input})
+    st.chat_message("user").write(user_input)
+    responseMessage = translate(response(user_input))
+    st.session_state["messages"].append({"role": "assistant", "content": responseMessage})
+    st.chat_message("assistant").write(responseMessage)
+    if responseMessage==correct_responses[7]:
+        newPrediction=compile_stats( st.session_state["games"],
+                                    st.session_state["goals"],
+                                    st.session_state["assists"],
+                                    st.session_state["pens_att"], 
+                                    st.session_state["pens_made"], 
+                                    st.session_state["progressive_carries"])
+        st.session_state["paso"]=pasos[0]
+        st.session_state["messages"].append({"role": "assistant", "content":translate(newPrediction)})
+        st.chat_message("assistant").write(translate(newPrediction))
+        st.session_state["messages"].append({"role":"assistant", "content":translate(correct_responses[0])})
+        st.chat_message("assistant").write(translate(correct_responses[0]))
 
 
