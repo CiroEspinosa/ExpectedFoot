@@ -177,7 +177,7 @@ st.set_page_config(page_icon=ruta_imagen_local_pelota, page_title="ExpectedFoot"
 st.markdown(
     f"""
     <script>
-        document.title = "{st.config.page_title}";
+        document.title = "{st.get_page_config().page_title}";
     </script>
     """,
     unsafe_allow_html=True
