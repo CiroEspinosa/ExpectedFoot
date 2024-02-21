@@ -134,10 +134,10 @@ def compile_stats(games, goals, assists, pens_att, pens_made, progressive_carrie
     new_data = [[games, goals, assists, goals_assists, pens_att, pens_made, goals_pens, progressive_carries]]
     prediction = xg_model_decision_tree_regressor.predict(new_data)
     if st.session_state["pens_made"] == 0:
-        return  (f"> el jugador ha marcado {goals} goles en {games} partidos, asistiendo {assists} veces, ha ejecutado {pens_att} penaltis, de los cuales no marcado ninguno y los goles marcados en jugada han sido {goals_pens}.\n El resultado de los goles esperados del jugador es de {prediction[0]:.2f} goles por temporada.")
+        return  (f"> el jugador ha marcado {goals} goles en {games} partidos, asistiendo {assists} veces, ha ejecutado {pens_att} penaltis, de los cuales no marcado ninguno y los goles marcados en jugada han sido {goals_pens}.\n **El resultado de los goles esperados del jugador es de {prediction[0]:.2f} goles por temporada.**")
 
     else:
-        return (f"> el jugador ha marcado {goals} goles en {games} partidos, asistiendo {assists} veces, ha ejecutado {pens_att} penaltis, de los cuales ha marcado {pens_made} y los goles marcados en jugada han sido {goals_pens}.\n El resultado de los goles esperados del jugador es de {prediction[0]:.2f} goles por temporada.")
+        return (f"> el jugador ha marcado {goals} goles en {games} partidos, asistiendo {assists} veces, ha ejecutado {pens_att} penaltis, de los cuales ha marcado {pens_made} y los goles marcados en jugada han sido {goals_pens}.\n **El resultado de los goles esperados del jugador es de {prediction[0]:.2f} goles por temporada.**")
         
       
 translator = Translator()
@@ -174,7 +174,14 @@ def translate(text):
 ruta_imagen_local = os.path.join("media", "logo_redondeado.png")
 ruta_imagen_local_pelota = os.path.join("media", "logo_pelota.png")
 st.set_page_config(page_icon=ruta_imagen_local_pelota, page_title="ExpectedFoot")
-
+st.markdown(
+    f"""
+    <script>
+        document.title = "{st.config.page_title}";
+    </script>
+    """,
+    unsafe_allow_html=True
+)
 st.image(ruta_imagen_local, width=400)
 st.title("ExpectedFoot")
 
