@@ -174,12 +174,19 @@ def translate(text):
 ruta_imagen_local = os.path.join("media", "logo_redondeado.png")
 ruta_imagen_local_pelota = os.path.join("media", "logo_pelota.png")
 st.set_page_config(page_icon=ruta_imagen_local_pelota, page_title="ExpectedFoot")
+col1, col2, col3 = st.columns([1, 3, 1])
 
-st.image(ruta_imagen_local, width=200,use_column_width=True)
-st.markdown(
-    "<style>div.stImage>img {display: block;margin-left: auto;margin-right: auto;}</style>",
-    unsafe_allow_html=True,
-)
+# Espacio en blanco para las columnas izquierda y derecha
+with col1:
+    st.write("")
+with col3:
+    st.write("")
+
+# Colocar la imagen en la columna central
+with col2:
+    st.image(ruta_imagen_local, width=200,use_column_width=True)
+
+
 st.title("ExpectedFoot")
 
 select_language_msg = translate("Selecciona el idioma: ")
