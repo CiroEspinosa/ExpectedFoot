@@ -231,7 +231,7 @@ if "messages" in st.session_state:
             st.session_state["paso"]=pasos[0]
             st.session_state["messages"].append({"role": "assistant", "content":translate(newPrediction)})
             st.chat_message("assistant").write(translate(newPrediction))
-            st.session_state["messages"].append({"role":"assistant", "content":translate(correct_responses[0])})
-            st.chat_message("assistant").write(translate(correct_responses[0]))
+            st.session_state["messages"].append({"role":"assistant", "content":translate("Si quiere analizar otro jugador introduzca su nombre")})
+            st.chat_message("assistant").write(translate("Si quiere analizar otro jugador introduzca su nombre"))
 
 
