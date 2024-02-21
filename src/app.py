@@ -197,7 +197,7 @@ with col2:
     )
 
     # Título centrado
-    st.title("ExpectedFoot", className="title-centered")
+    st.title("ExpectedFoot")
 
 
 
