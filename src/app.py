@@ -206,8 +206,8 @@ elif option == english_option:
     language = "inglés"
 
 if "messages" not in st.session_state:
-  st.session_state["messages"] = [{"role":"assistant", "content":translate("¡Hola! Soy el asistente de ExpectedFoot, tu analizador de jugadores.")}]
-  st.session_state["messages"].append({"role":"assistant", "content":translate(correct_responses[0])})
+  st.session_state["messages"] = [{"role":"assistant","avatar":"⚽" ,"content":translate("¡Hola! Soy el asistente de ExpectedFoot, tu analizador de jugadores.")}]
+  st.session_state["messages"].append({"role":"assistant", "avatar":"⚽","content":translate(correct_responses[0])})
 
 if "messages" in st.session_state:
    for msg in st.session_state["messages"]:
