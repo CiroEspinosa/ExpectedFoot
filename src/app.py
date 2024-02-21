@@ -211,7 +211,7 @@ if "messages" not in st.session_state:
 
 if "messages" in st.session_state:
    for msg in st.session_state["messages"]:
-    st.chat_message(msg["role"]).write(translate(msg["content"]))
+    st.chat_message(msg["role"],ruta_imagen_local_pelota).write(translate(msg["content"]))
 
 
    if user_input := st.chat_input():
@@ -220,7 +220,7 @@ if "messages" in st.session_state:
         st.chat_message("user").write(user_input)
         responseMessage = translate(response(user_input))
         st.session_state["messages"].append({"role": "assistant", "content": responseMessage})
-        st.chat_message("assistant").write(responseMessage)
+        st.chat_message("assistant",ruta_imagen_local_pelota).write(responseMessage)
         if responseMessage==correct_responses[7]:
             newPrediction=compile_stats( st.session_state["games"],
                                         st.session_state["goals"],
@@ -230,17 +230,6 @@ if "messages" in st.session_state:
                                         st.session_state["progressive_carries"])
             st.session_state["paso"]=pasos[0]
             st.session_state["messages"].append({"role": "assistant", "content":translate(newPrediction)})
-            st.chat_message("assistant").write(translate(newPrediction))
+            st.chat_message("assistant",ruta_imagen_local_pelota).write(translate(newPrediction))
             st.session_state["messages"].append({"role":"assistant", "content":translate("Si quiere analizar otro jugador introduzca su nombre")})
-            st.chat_message("assistant").write(translate("Si quiere analizar otro jugador introduzca su nombre"))
-
-
-
-custom_css = """
-    <style>
-        .stAssistant { background-color: #ffeeba; color: #856404; }
-    </style>
-"""
-
-st.markdown(custom_css, unsafe_allow_html=True)
-
+            st.chat_message("assistant",ruta_imagen_local_pelota).write(translate("Si quiere analizar otro jugador introduzca su nombre"))
