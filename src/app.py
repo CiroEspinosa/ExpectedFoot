@@ -173,6 +173,8 @@ def translate(text):
 
 ruta_imagen_local = os.path.join("media", "logo.png")
 
+st.set_page_config(page_icon=ruta_imagen_local, page_title="ExpectedFoot")
+
 st.image(ruta_imagen_local, width=400)
 st.title("ExpectedFoot")
 
