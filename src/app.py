@@ -174,14 +174,7 @@ def translate(text):
 ruta_imagen_local = os.path.join("media", "logo_redondeado.png")
 ruta_imagen_local_pelota = os.path.join("media", "logo_pelota.png")
 st.set_page_config(page_icon=ruta_imagen_local_pelota, page_title="ExpectedFoot")
-st.markdown(
-    f"""
-    <script>
-        document.title = "{st.experimental_get_query_params()['page_title'][0]}";
-    </script>
-    """,
-    unsafe_allow_html=True
-)
+
 st.image(ruta_imagen_local, width=400)
 st.title("ExpectedFoot")
 
