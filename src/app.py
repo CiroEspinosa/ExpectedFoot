@@ -185,7 +185,19 @@ with col3:
 # Colocar la imagen en la columna central
 with col2:
     st.image(ruta_imagen_local, width=200,use_column_width=True)
-    st.title("ExpectedFoot")
+     st.markdown(
+        """
+        <style>
+        .title-centered {
+            text-align: center;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+    # Título centrado
+    st.title("ExpectedFoot", className="title-centered")
 
 
 
