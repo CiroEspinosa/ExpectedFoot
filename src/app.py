@@ -229,8 +229,8 @@ if "messages" in st.session_state:
                                         st.session_state["pens_made"], 
                                         st.session_state["progressive_carries"])
             st.session_state["paso"]=pasos[0]
-            st.session_state["messages"].append({"role": "assistant", "content":translate(newPrediction)})
+            st.session_state["messages"].append({"role": "assistant","avatar":"⚽" , "content":translate(newPrediction)})
             st.chat_message("assistant",avatar="⚽").write(translate(newPrediction))
-            st.session_state["messages"].append({"role":"assistant", "content":translate("Si quiere analizar otro jugador introduzca su nombre")})
+            st.session_state["messages"].append({"role":"assistant", "avatar":"⚽" ,"content":translate("Si quiere analizar otro jugador introduzca su nombre")})
             st.chat_message("assistant",avatar="⚽").write(translate("Si quiere analizar otro jugador introduzca su nombre"))
 
