@@ -176,6 +176,10 @@ ruta_imagen_local_pelota = os.path.join("media", "logo_pelota.png")
 st.set_page_config(page_icon=ruta_imagen_local_pelota, page_title="ExpectedFoot")
 
 st.image(ruta_imagen_local, width=400,use_column_width=True)
+st.markdown(
+    "<style>div.stImage>img {display: block;margin-left: auto;margin-right: auto;}</style>",
+    unsafe_allow_html=True,
+)
 st.title("ExpectedFoot")
 
 select_language_msg = translate("Selecciona el idioma: ")
