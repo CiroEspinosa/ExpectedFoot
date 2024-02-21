@@ -185,9 +185,10 @@ with col3:
 # Colocar la imagen en la columna central
 with col2:
     st.image(ruta_imagen_local, width=200,use_column_width=True)
+    st.title("ExpectedFoot")
 
 
-st.title("ExpectedFoot")
+
 
 select_language_msg = translate("Selecciona el idioma: ")
 spanish_option = translate("Español")
