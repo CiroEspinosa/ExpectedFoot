@@ -173,7 +173,7 @@ def translate(text):
             if st.session_state["language"]=="":
                 return text
             
-            #text=text.replace(" "+st.session_state["jugador"],""+st.session_state["jugador"]+"")
+            text=text.replace(st.session_state["jugador"],"1")
 
             if st.session_state["language"] == "español":
                 translation = translator.translate(text, dest='es')
@@ -186,7 +186,7 @@ def translate(text):
             elif  st.session_state["language"] == "alemán":
                 translation = translator.translate(text, dest='de')
             
-            #translated_text = translated_text.replace(""+st.session_state["jugador"]+"", " "+st.session_state["jugador"]+"")
+            translated_text = translated_text.replace(1, st.session_state["jugador"])
 
             translated_text = translation.text
             translated_text = translated_text.replace("Pie esperado", "ExpectedFoot")
