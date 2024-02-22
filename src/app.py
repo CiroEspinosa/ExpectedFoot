@@ -219,40 +219,40 @@ with col3:
 with col2:
     st.image(ruta_imagen_local, width=200, use_column_width=True)
 
+colu1, colu2, colu3, colu4, colu5 = st.columns([1, 1, 1, 1, 1])
 
-
-
-    colu1, colu2, colu3, colu4, colu5 = st.columns([1, 1, 1, 1, 1])
-
-    select_language_msg = translate("Selecciona el idioma: ")
-    spanish_option = "Español"
-    english_option = "English"
-    french_option="Français"
-    italian_option="Italiano"
-    german_option="Deutsch"
+select_language_msg = translate("Selecciona el idioma: ")
+spanish_option = "Español"
+english_option = "English"
+french_option="Français"
+italian_option="Italiano"
+german_option="Deutsch"
 
     
-    with colu1:
-        container_es = st.container()
-        if container_es.button(spanish_option,key="A"):
-            st.session_state["language"] = "español"
-    with colu2:
-        container_en = st.container()
-        if container_en.button(english_option,key="B"):
-            st.session_state["language"] = "inglés"
-    with colu3:
-        container_en = st.container()
-        if container_en.button(french_option,key="C"):
-            st.session_state["language"] = "francés"
-    with colu4:
-        container_en = st.container()
-        if container_en.button(italian_option,key="D"):
-            st.session_state["language"] = "italiano"
-    with colu5:
-        container_en = st.container()
-        if container_en.button(german_option,key="E"):
-            st.session_state["language"] = "alemán"
+with colu1:
+    container_es = st.container()
+    if container_es.button(spanish_option,key="A"):
+        st.session_state["language"] = "español"
+with colu2:
+    container_en = st.container()
+    if container_en.button(english_option,key="B"):
+        st.session_state["language"] = "inglés"
+with colu3:
+    container_en = st.container()
+    if container_en.button(french_option,key="C"):
+        st.session_state["language"] = "francés"
+with colu4:
+    container_en = st.container()
+    if container_en.button(italian_option,key="D"):
+        st.session_state["language"] = "italiano"
+with colu5:
+    container_en = st.container()
+    if container_en.button(german_option,key="E"):
+        st.session_state["language"] = "alemán"
 
+
+
+   
 
 if "messages" not in st.session_state:
   st.session_state["messages"] = [{"role":"assistant","avatar":"⚽" ,"content":translate("¡Hola! Soy el asistente de ExpectedFoot, tu analizador de jugadores.")}]
