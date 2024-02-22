@@ -186,7 +186,7 @@ def translate(text):
             elif  st.session_state["language"] == "alemán":
                 translation = translator.translate(text, dest='de')
             
-            translated_text = translated_text.replace(1, st.session_state["jugador"])
+            
 
             translated_text = translation.text
             translated_text = translated_text.replace("Pie esperado", "ExpectedFoot")
@@ -195,7 +195,7 @@ def translate(text):
             translated_text = translated_text.replace("aspettativa", "ExpectedFoot")
             translated_text = translated_text.replace("Erwartungs", "ExpectedFoot-")
             
-           
+            translated_text = translated_text.replace("1", st.session_state["jugador"])
             
             if translated_text is None or translated_text=="":
                 return text
