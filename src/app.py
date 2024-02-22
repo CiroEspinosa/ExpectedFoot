@@ -10,6 +10,27 @@ modelo_ruta = 'model/xg_model_decision_tree_regressor.pkl'
 xg_model_decision_tree_regressor = joblib.load(modelo_ruta)
 
 
+ruta_imagen_local = os.path.join("media", "logo.png")
+ruta_imagen_local_pelota = os.path.join("media", "logo_pelota.png")
+st.set_page_config(page_icon=ruta_imagen_local_pelota, page_title="ExpectedFoot")
+
+
+page = """
+<style>
+[data-testid=stAppViewContainer]{
+    background-color: #169E79
+}
+.sidebar{
+    background-color: #244155; 
+}
+.css-1ytj5ow {
+    background-color: #244155; /* Puede que necesites ajustar esto */
+}
+</style>
+"""
+
+st.markdown(page, unsafe_allow_html=True)
+
 
 def contiene_solo_letras(cadena):
     return all(caracter.isalpha() or caracter.isspace() for caracter in cadena)
@@ -141,7 +162,7 @@ def compile_stats(games, goals, assists, pens_att, pens_made, progressive_carrie
         
       
 translator = Translator()
-language = "inglés"
+language = "español"
 
 def translate(text):
     global language
@@ -171,9 +192,8 @@ def translate(text):
         return text
 
 
-ruta_imagen_local = os.path.join("media", "logo_redondeado.png")
-ruta_imagen_local_pelota = os.path.join("media", "logo_pelota.png")
-st.set_page_config(page_icon=ruta_imagen_local_pelota, page_title="ExpectedFoot")
+
+
 col1, col2, col3 = st.columns([1, 3, 1])
 
 # Espacio en blanco para las columnas izquierda y derecha
@@ -184,26 +204,32 @@ with col3:
 
 # Colocar la imagen en la columna central
 with col2:
-    st.image(ruta_imagen_local, width=200,use_column_width=True)
-    st.markdown("<h1 style='text-align: center; color: white;'>ExpectedFoot</h1>", unsafe_allow_html=True)
-
-
-    # Título centrado
-    #st.title("ExpectedFoot")
+    st.image(ruta_imagen_local, width=200, use_column_width=True)
 
 
 
 
-select_language_msg = translate("Selecciona el idioma: ")
-spanish_option = translate("Español")
-english_option = translate("Inglés")
+    colu1, colu2, colu3, colu4 = st.columns([1.5,4,1,4])
 
-option = st.sidebar.radio("Seleccionar idioma: ",(spanish_option, english_option), key='select_language', label_visibility="hidden")
+    select_language_msg = translate("Selecciona el idioma: ")
+    spanish_option = translate("Español")
+    english_option = translate("English")
 
-if option == spanish_option:
-    language = "español"
-elif option == english_option:
-    language = "inglés"
+    # Botón para Español en su propio contenedor
+    with colu1:
+        ()
+    with colu2:
+        container_es = st.container()
+        if container_es.button(spanish_option):
+            language = "español"
+    with colu3:
+        ()
+    # Botón para Inglés en su propio contenedor
+    with colu4:
+        container_en = st.container()
+        if container_en.button(english_option):
+            language = "inglés"
+
 
 if "messages" not in st.session_state:
   st.session_state["messages"] = [{"role":"assistant","avatar":"⚽" ,"content":translate("¡Hola! Soy el asistente de ExpectedFoot, tu analizador de jugadores.")}]
@@ -233,4 +259,3 @@ if "messages" in st.session_state:
             st.chat_message("assistant",avatar="⚽").write(translate(newPrediction))
             st.session_state["messages"].append({"role":"assistant", "avatar":"⚽" ,"content":translate("Si quiere analizar otro jugador introduzca su nombre")})
             st.chat_message("assistant",avatar="⚽").write(translate("Si quiere analizar otro jugador introduzca su nombre"))
-
