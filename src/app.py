@@ -177,7 +177,7 @@ def translate(text):
                     text=text.replace(" "+st.session_state["jugador"]+" "," the player")
                 translation = translator.translate(text, dest='es')
                 translated_text = translation.text
-            elif language == "inglés":
+            elif  st.session_state["language"] == "inglés":
                 if st.session_state["jugador"]!="":
                     text=text.replace(" "+st.session_state["jugador"]+" "," el jugador")
                 translation = translator.translate(text, dest='en')
