@@ -169,6 +169,8 @@ def translate(text):
     if text != st.session_state["jugador"] and text is not None and not text.isdigit() and text!="":
         try:
             translated_text = ""
+            if language=="":
+                return text
             if language == "español":
                 if st.session_state["jugador"]!="":
                     text=text.replace(" "+st.session_state["jugador"]+" "," the player")
