@@ -85,7 +85,7 @@ def response(user_input):
       if contiene_solo_letras(user_input):
          st.session_state["paso"]=pasos[1]
          st.session_state["jugador"]=user_input
-         return f"¿Cuántos partidos ha jugado"+st.session_state["jugador"]+"? "
+         return f"¿Cuántos partidos ha jugado "+st.session_state["jugador"]+"? "
       else:
          return error_responses[0]
     #  f"¿Cuántos partidos ha jugado? ",
@@ -98,7 +98,7 @@ def response(user_input):
       else:
          st.session_state["paso"]=pasos[2]
          st.session_state["games"]=user_input
-         return  f"¿Cuántos goles ha marcado"+st.session_state["jugador"]+"?"
+         return  f"¿Cuántos goles ha marcado "+st.session_state["jugador"]+"?"
     # f"¿Cuántos goles ha marcado?",
    if st.session_state["paso"] == pasos[2]:
         if not user_input.isdigit():
@@ -106,7 +106,7 @@ def response(user_input):
         else:
             st.session_state["paso"] = pasos[3]
             st.session_state["goals"] = int(user_input)
-            return f"¿Cuántas asistencias ha realizado"+st.session_state["jugador"]+"? "
+            return f"¿Cuántas asistencias ha realizado "+st.session_state["jugador"]+"? "
 
     # f"¿Cuántas asistencias ha realizado? ",
    if st.session_state["paso"] == pasos[3]:
@@ -115,7 +115,7 @@ def response(user_input):
         else:
             st.session_state["paso"] = pasos[4]
             st.session_state["assists"] = int(user_input)
-            return f"¿Cuántos penaltis ha ejecutado"+st.session_state["jugador"]+"? "
+            return f"¿Cuántos penaltis ha ejecutado "+st.session_state["jugador"]+"? "
 
     # f"¿Cuántos penaltis ha ejecutado? ",
    if st.session_state["paso"] == pasos[4]:
@@ -124,7 +124,7 @@ def response(user_input):
         else:
             st.session_state["paso"] = pasos[5]
             st.session_state["pens_att"]= int(user_input)
-            return f"¿Cuántos goles de penalti ha marcado"+st.session_state["jugador"]+" de los "+str(st.session_state["pens_att"])+" penaltis ejecutados?"
+            return f"¿Cuántos goles de penalti ha marcado "+st.session_state["jugador"]+" de los "+str(st.session_state["pens_att"])+" penaltis ejecutados?"
 
     # f"¿Cuántos goles de penalti ha marcado el de los penaltis ejecutados? ",
    if st.session_state["paso"] == pasos[5]:
