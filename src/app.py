@@ -178,9 +178,7 @@ def translate(text):
             if st.session_state["jugador"]!="":
                 jugador_traducido=translator.translate(" "+st.session_state["jugador"]+"",dest=st.session_state["language"])
                 translated_text = translated_text.replace(jugador_traducido, " "+st.session_state["jugador"]+"")
-            
-            if translated_text is None or translated_text=="":
-                return text
+            translated_text=jugador_traducido
             return translated_text
         except Exception as e:
             print(f"Error en la traducción: {e}")
