@@ -73,13 +73,6 @@ if "paso" not in st.session_state:
     st.session_state["paso"]=pasos[0]
 
 def response(user_input):
-   jugador=st.session_state["jugador"]
-   games=st.session_state["games"]
-   goals=st.session_state["goals"]
-   assists=st.session_state["assists"]
-   pens_att=st.session_state["pens_att"]
-   pens_made=st.session_state["pens_made"]
-   progressive_carries=st.session_state["progressive_carries"]
    # "Introduce el nombre del jugador que desea analizar",
    if st.session_state["paso"]==pasos[0]:
       if contiene_solo_letras(user_input):
@@ -183,7 +176,8 @@ def translate(text):
             translated_text = translated_text.replace("aspettativa", "ExpectedFoot")
             translated_text = translated_text.replace("Erwartungs", "ExpectedFoot-")
             if st.session_state["jugador"]!="":
-                translated_text = translated_text.replace(translator.translate(" "+st.session_state["jugador"]+"",dest=st.session_state["language"]), " "+st.session_state["jugador"]+"")
+                jugador_traducido=translator.translate(" "+st.session_state["jugador"]+"",dest=st.session_state["language"])
+                translated_text = translated_text.replace(jugador_traducido, " "+st.session_state["jugador"]+"")
             
             if translated_text is None or translated_text=="":
                 return text
