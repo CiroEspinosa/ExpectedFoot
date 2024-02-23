@@ -177,6 +177,7 @@ def translate(text):
             translated_text = translated_text.replace("AwayAdfoot", "ExpectedFoot")
             translated_text = translated_text.replace("aspettativa", "ExpectedFoot")
             translated_text = translated_text.replace("Erwartungs", "ExpectedFoot-")
+            
             if st.session_state["jugador"]!="":
                 translated_text = translated_text.replace(" Messi", " "+st.session_state["jugador"]+"")
             
