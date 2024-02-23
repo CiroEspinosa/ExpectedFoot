@@ -173,7 +173,7 @@ def translate(text):
             if st.session_state["language"]=="":
                 return text
             
-            text=text.replace(" "+st.session_state["jugador"]+""," 1")
+            #text=text.replace(" "+st.session_state["jugador"]+""," 1")
 
             if st.session_state["language"] == "español":
                 translation = translator.translate(text, dest='es')
@@ -195,7 +195,7 @@ def translate(text):
             translated_text = translated_text.replace("aspettativa", "ExpectedFoot")
             translated_text = translated_text.replace("Erwartungs", "ExpectedFoot-")
             
-            translated_text = translated_text.replace(" 1", " "+st.session_state["jugador"]+"")
+            #translated_text = translated_text.replace(" 1", " "+st.session_state["jugador"]+"")
             
             if translated_text is None or translated_text=="":
                 return text
