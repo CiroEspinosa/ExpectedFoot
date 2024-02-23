@@ -166,7 +166,9 @@ def translate(text):
             if st.session_state["language"]=="":
                 return text
 
-            
+            if st.session_state["jugador"]!="":
+                text = text.replace(" "+st.session_state["jugador"]+""," 1")
+                
             translation = translator.translate(text, dest=st.session_state["language"])
 
             translated_text = translation.text
@@ -176,9 +178,8 @@ def translate(text):
             translated_text = translated_text.replace("aspettativa", "ExpectedFoot")
             translated_text = translated_text.replace("Erwartungs", "ExpectedFoot-")
             if st.session_state["jugador"]!="":
-                jugador_traducido=translator.translate(st.session_state["jugador"],dest=st.session_state["language"])
-                translated_text = translated_text.replace(jugador_traducido, " "+st.session_state["jugador"]+"")
-            translated_text=jugador_traducido
+                translated_text = translated_text.replace(" 1", " "+st.session_state["jugador"]+"")
+            
             return translated_text
         except Exception as e:
             print(f"Error en la traducción: {e}")
