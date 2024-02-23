@@ -172,21 +172,9 @@ def translate(text):
             translated_text = ""
             if st.session_state["language"]=="":
                 return text
-            if st.session_state["jugador"]!="":
-                text=text.replace(" "+st.session_state["jugador"]+""," 1")
 
-            if st.session_state["language"] == "español":
-                translation = translator.translate(text, dest='es')
-            elif  st.session_state["language"] == "inglés":
-                translation = translator.translate(text, dest='en')
-            elif  st.session_state["language"] == "francés":
-                translation = translator.translate(text, dest='fr')
-            elif  st.session_state["language"] == "italiano":
-                translation = translator.translate(text, dest='it')
-            elif  st.session_state["language"] == "alemán":
-                translation = translator.translate(text, dest='de')
             
-            
+            translation = translator.translate(text, dest=st.session_state["language"])
 
             translated_text = translation.text
             translated_text = translated_text.replace("Pie esperado", "ExpectedFoot")
@@ -195,7 +183,7 @@ def translate(text):
             translated_text = translated_text.replace("aspettativa", "ExpectedFoot")
             translated_text = translated_text.replace("Erwartungs", "ExpectedFoot-")
             if st.session_state["jugador"]!="":
-                translated_text = translated_text.replace(" 1", " "+st.session_state["jugador"]+"")
+                translated_text = translated_text.replace(translator.translate(" "+st.session_state["jugador"]+"",dest=st.session_state["language"]), " "+st.session_state["jugador"]+"")
             
             if translated_text is None or translated_text=="":
                 return text
@@ -233,23 +221,23 @@ german_option="Deutsch"
 with colu1:
     container_es = st.container()
     if container_es.button(spanish_option,key="A"):
-        st.session_state["language"] = "español"
+        st.session_state["language"] = "es"
 with colu2:
     container_en = st.container()
     if container_en.button(english_option,key="B"):
-        st.session_state["language"] = "inglés"
+        st.session_state["language"] = "en"
 with colu3:
     container_en = st.container()
     if container_en.button(french_option,key="C"):
-        st.session_state["language"] = "francés"
+        st.session_state["language"] = "fr"
 with colu4:
     container_en = st.container()
     if container_en.button(italian_option,key="D"):
-        st.session_state["language"] = "italiano"
+        st.session_state["language"] = "it"
 with colu5:
     container_en = st.container()
     if container_en.button(german_option,key="E"):
-        st.session_state["language"] = "alemán"
+        st.session_state["language"] = "de"
 
 
 
